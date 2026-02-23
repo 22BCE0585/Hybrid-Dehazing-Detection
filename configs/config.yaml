@@ -1,0 +1,27 @@
+experiment:
+  name: HDA_DehazeNet_v1
+  seed: 42
+
+data:
+  image_size: 512
+  train_split: 0.8
+
+dehaze:
+  omega: 0.95
+  t_min: 0.1
+  patch_size: 15
+
+cnn:
+  epochs: 50
+  batch_size: 8
+  learning_rate: 0.0001
+
+detection:
+  model: yolov8n.pt
+  conf_threshold: 0.5
+  iou_threshold: 0.5
+
+evaluation:
+  compute_psnr: true
+  compute_ssim: true
+  compute_map: true
