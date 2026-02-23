@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+.env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# Large datasets
+data/synthetic/
+data/raw/detection_set/
+
+# Results
+results/
+
+# Model checkpoints
+models/cnn_refiner/checkpoints/*.pth
+
+# System files
+.DS_Store
+Thumbs.db
