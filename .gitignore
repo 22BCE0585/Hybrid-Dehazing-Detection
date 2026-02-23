@@ -23,3 +23,7 @@ models/cnn_refiner/checkpoints/*.pth
 # System files
 .DS_Store
 Thumbs.db
+
+# Model weights
+*.pt
+*.pth
