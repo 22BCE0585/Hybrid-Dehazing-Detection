@@ -242,27 +242,7 @@ The web interface allows:
 
 ## Project Structure
 
-Hybrid-Dehazing-Detection/
-│
-├── app.py                     # Streamlit demo interface
-├── main.py                    # Multi-image evaluation pipeline
-├── architecture.png           # System architecture diagram
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-├── models/
-│   ├── classical/             # Dark Channel Prior implementation
-│   ├── cnn_refiner/           # Residual CNN model
-│   ├── synthetic/             # Haze simulation module
-│   └── detection/             # YOLO detection wrapper
-│
-├── evaluation/                # Metrics computation
-│
-├── data/
-│   └── raw/                   # Sample input images (optional)
-│
-└── results/                   # Generated outputs (ignored in Git)
+
 
 ---
 
