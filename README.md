@@ -1,233 +1,206 @@
-# Hybrid Physics-Informed Image Dehazing and Object Detection Framework
+Hybrid Physics-Informed Image Dehazing and Object Detection Framework
+Overview
 
-## Overview
+This project presents a hybrid image dehazing framework that integrates:
 
-This project presents a **Hybrid Image Dehazing Framework** that integrates:
+Classical Dark Channel Prior (DCP)
 
-- Classical **Dark Channel Prior (DCP)**
-- Spatially varying atmospheric scattering simulation
-- Residual CNN-based transmission refinement
-- Downstream object detection robustness evaluation using YOLOv8
-- Interactive Streamlit-based demonstration interface
+Spatially varying atmospheric scattering simulation
 
-The system combines physics-based atmospheric modeling with deep learning to enhance image restoration quality and improve detection performance under severe haze conditions.
+Residual CNN-based transmission refinement
 
----
+YOLOv8-based object detection robustness evaluation
 
-## Problem Statement
+Interactive Streamlit demonstration interface
 
-Haze significantly degrades image quality and reduces the reliability of computer vision systems such as object detectors.
+The system combines physics-based atmospheric modeling with deep learning to enhance image restoration quality and improve object detection performance under severe haze conditions.
+
+Problem Statement
+
+Haze significantly degrades:
+
+Image visibility
+
+Structural clarity
+
+Object detection confidence
+
+Downstream perception systems
 
 Traditional dehazing approaches:
-- Assume uniform atmospheric light
-- Assume global scattering coefficients
-- Fail under spatially varying haze
+
+Assume uniform atmospheric light
+
+Assume global scattering coefficients
+
+Fail under spatially varying haze
 
 Deep learning approaches:
-- Require large real-world paired datasets
-- Lack physical interpretability
 
-This project proposes a hybrid solution that merges classical atmospheric modeling with learned residual correction.
+Require large real-world paired datasets
 
----
+Lack physical interpretability
 
-## Key Contributions
+May produce unrealistic enhancements
 
-- Spatially varying atmospheric haze simulation
-- Classical Dark Channel Prior implementation
-- Residual CNN for transmission refinement
-- Multi-image statistical detection evaluation
-- Robustness study under varying haze intensities
-- Interactive web-based demo system
+This project proposes a hybrid solution that merges physical modeling with learned residual correction.
 
----
+Key Contributions
 
-## System Architecture
+Spatially varying atmospheric haze simulation
 
-The pipeline follows:
+Physics-based Dark Channel Prior baseline
 
-Architecture Diagram:
+Residual CNN for transmission refinement
 
-![Architecture](architecture.png)
+Multi-image statistical detection evaluation
 
----
+Robustness study under varying haze intensities
 
-## Core Components
+Interactive web-based demonstration system
 
-### 1. Haze Simulation Module
-Implements spatial atmospheric scattering:
+System Architecture
+
+The overall pipeline follows:
+
+Synthetic haze generation
+
+Classical DCP restoration
+
+Residual CNN refinement
+
+Radiance reconstruction
+
+Object detection evaluation
+
+Architecture Diagram
+
+Atmospheric Scattering Model
+
+The system is based on the atmospheric scattering equation:
 
 I(x) = J(x)t(x) + A(1 − t(x))
 
 Where:
-- I(x) = Observed hazy image
-- J(x) = Clean image
-- t(x) = Transmission map
-- A = Atmospheric light
 
-Includes:
-- Depth map generation
-- Spatial beta scattering map
-- Illumination variation
-- Sensor noise simulation
+I(x) → Observed hazy image
 
----
+J(x) → Clean scene radiance
 
-### 2. Classical Dehazing (Dark Channel Prior)
+t(x) → Transmission map
 
-Steps:
-- Dark channel computation
-- Atmospheric light estimation
-- Transmission estimation
-- Guided filtering refinement
-- Radiance recovery
+A → Atmospheric light
 
-Provides physics-based baseline restoration.
+The hybrid model learns a residual correction:
 
----
+t_refined(x) = t_classical(x) + Δt(x)
 
-### 3. Hybrid Residual CNN
+Where Δt(x) represents the learned correction from the CNN.
 
-A lightweight encoder-decoder network that learns:
+Core Components
+1. Haze Simulation Module
 
-Residual correction Δt(x)
+Implements spatially varying atmospheric scattering with:
+
+Random depth map generation
+
+Spatial beta (scattering coefficient) map
+
+Spatial atmospheric light modeling
+
+Illumination variation
+
+Sensor noise simulation
+
+This module enables controlled robustness testing under different haze intensities.
+
+2. Classical Dehazing (Dark Channel Prior)
+
+Pipeline:
+
+Dark channel computation
+
+Atmospheric light estimation
+
+Transmission estimation
+
+Guided filter refinement
+
+Scene radiance recovery
+
+Provides a physics-based baseline restoration method.
+
+3. Hybrid Residual CNN
+
+A lightweight encoder-decoder network that learns a residual correction to the classical transmission map.
 
 Final transmission:
 
 t_refined(x) = t_classical(x) + Δt(x)
 
-This improves:
-- Edge preservation
-- Local atmospheric consistency
-- Structural fidelity
+Benefits:
 
----
+Better edge preservation
 
-### 4. Detection Evaluation
+Improved local consistency
 
-Uses pretrained YOLOv8 for:
+Reduced over-smoothing
 
-- Object detection confidence analysis
-- Robustness measurement
-- Downstream perception validation
+Enhanced structural fidelity
 
-The detector is used as an evaluation tool, not as the primary contribution.
+4. Detection Evaluation Module
 
----
+Uses pretrained YOLOv8 to evaluate:
 
-## Experimental Results Summary
+Object count
 
-Under severe haze:
+Average detection confidence
 
-- Detection confidence drops significantly.
-- Classical DCP partially recovers detection.
-- Hybrid refinement improves robustness.
-- Hybrid shows measurable confidence gain over classical.
-- Improvement increases with haze severity.
+Robustness under haze
 
-The system demonstrates that hybrid dehazing enhances both perceptual quality and detection reliability.
+Hybrid vs classical improvement
 
+The detector serves as a downstream robustness evaluation tool.
 
-Architecture Diagram:
+Experimental Results Summary
 
-![Architecture](architecture.png)
+Under increasing haze intensity:
 
----
+Detection confidence drops significantly.
 
-## Core Components
+Classical DCP partially restores detection performance.
 
-### 1. Haze Simulation Module
-Implements spatial atmospheric scattering:
+Hybrid residual refinement improves detection robustness.
 
-I(x) = J(x)t(x) + A(1 − t(x))
+Hybrid consistently shows confidence gains over classical.
 
-Where:
-- I(x) = Observed hazy image
-- J(x) = Clean image
-- t(x) = Transmission map
-- A = Atmospheric light
+Improvement increases under severe haze conditions.
 
-Includes:
-- Depth map generation
-- Spatial beta scattering map
-- Illumination variation
-- Sensor noise simulation
-
----
-
-### 2. Classical Dehazing (Dark Channel Prior)
-
-Steps:
-- Dark channel computation
-- Atmospheric light estimation
-- Transmission estimation
-- Guided filtering refinement
-- Radiance recovery
-
-Provides physics-based baseline restoration.
-
----
-
-### 3. Hybrid Residual CNN
-
-A lightweight encoder-decoder network that learns:
-
-Residual correction Δt(x)
-
-Final transmission:
-
-t_refined(x) = t_classical(x) + Δt(x)
-
-This improves:
-- Edge preservation
-- Local atmospheric consistency
-- Structural fidelity
-
----
-
-### 4. Detection Evaluation
-
-Uses pretrained YOLOv8 for:
-
-- Object detection confidence analysis
-- Robustness measurement
-- Downstream perception validation
-
-The detector is used as an evaluation tool, not as the primary contribution.
-
----
-
-## Experimental Results Summary
-
-Under severe haze:
-
-- Detection confidence drops significantly.
-- Classical DCP partially recovers detection.
-- Hybrid refinement improves robustness.
-- Hybrid shows measurable confidence gain over classical.
-- Improvement increases with haze severity.
-
-The system demonstrates that hybrid dehazing enhances both perceptual quality and detection reliability.
+The framework demonstrates that hybrid dehazing enhances both perceptual quality and detection reliability.
 
 Installation
-1. Clone Repository
-git clone https://github.com/YOUR_USERNAME/Hybrid-Dehazing-Detection.git
+1. Clone the Repository
+git clone https://github.com/22BCE0585/Hybrid-Dehazing-Detection.git
 cd Hybrid-Dehazing-Detection
 2. Create Virtual Environment (Recommended)
 
-Windows:
+Windows
 
 python -m venv venv
 venv\Scripts\activate
 
-Linux / Mac:
+Linux / Mac
 
 python3 -m venv venv
 source venv/bin/activate
 3. Install Dependencies
 pip install -r requirements.txt
+
 Running the Project
 Multi-Image Detection Evaluation
+
+Run:
+
 python main.py
 
 This performs:
@@ -238,9 +211,11 @@ Classical Dark Channel Prior restoration
 
 Hybrid residual CNN refinement
 
-YOLO detection evaluation
+YOLO-based object detection evaluation
 
 Statistical confidence analysis
+
+The script processes multiple images and prints average detection confidence results.
 
 Run Interactive Web Application
 streamlit run app.py
@@ -259,7 +234,7 @@ Transmission map visualization
 
 Detection confidence analysis
 
-Optional PSNR / SSIM computation
+Optional PSNR / SSIM computation (if ground truth provided)
 
 Downloading hybrid output
 
@@ -289,15 +264,15 @@ Hybrid-Dehazing-Detection/
 ├── .gitignore
 │
 ├── models/
-│   ├── classical/
-│   ├── cnn_refiner/
-│   ├── synthetic/
-│   └── detection/
+│   ├── classical/             # Dark Channel Prior implementation
+│   ├── cnn_refiner/           # Residual CNN model
+│   ├── synthetic/             # Haze simulation module
+│   └── detection/             # YOLO detection wrapper
 │
-├── evaluation/
+├── evaluation/                # Metrics computation
 │
 ├── data/
-│   └── raw/                   # Sample input images
+│   └── raw/                   # Sample input images (optional)
 │
 └── results/                   # Generated outputs (ignored in Git)
 Technical Highlights
@@ -310,11 +285,9 @@ Lightweight encoder-decoder CNN
 
 Spatial haze simulation
 
-Robustness-focused evaluation
+Detection robustness evaluation
 
-Modular, reproducible architecture
-
-Clean engineering structure
+Modular and reproducible architecture
 
 Why Hybrid Works
 
@@ -334,25 +307,25 @@ Preserves structural consistency
 
 Maintains detector compatibility
 
-Prevents catastrophic over-enhancement
+Reduces over-enhancement artifacts
 
 Limitations
 
 Synthetic haze may not perfectly match real-world atmospheric conditions
 
-Extremely severe haze may still degrade detection performance
+Extremely severe haze can still degrade detection performance
 
-The CNN was trained on synthetic data only
+CNN was trained primarily on synthetic data
 
 Future Improvements
 
-Real-world haze dataset training
+Training on real-world haze datasets
 
-Lightweight mobile deployment
-
-Domain adaptation for real haze
+Domain adaptation techniques
 
 End-to-end joint dehazing-detection training
+
+Lightweight mobile deployment
 
 Edge-device optimization
 
@@ -362,13 +335,9 @@ Author
 
 Your Name
 Final Year Project
-Computer Science / AI Specialization
+Computer Science / Artificial Intelligence
 
 License
 
-This project is developed for academic purposes.
-You may adapt and extend it for research or educational use.
-
-Acknowledgment
-
-This work integrates classical atmospheric scattering models with modern deep learning techniques to improve robustness of computer vision systems under adverse environmental conditions.
+This project is developed for academic and research purposes.
+It may be adapted for educational or research use.
