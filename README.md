@@ -62,7 +62,7 @@ The overall pipeline follows:
 
 ### Architecture Diagram
 
-![Architecture](architecture.png)
+![Architecture](assets/architecture.png)
 
 ---
 
@@ -242,7 +242,7 @@ The web interface allows:
 
 ## Project Structure
 
-
+![Project Structure](assets/demo_output.png)
 
 ---
 
